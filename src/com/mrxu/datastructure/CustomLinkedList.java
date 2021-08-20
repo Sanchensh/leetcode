@@ -23,7 +23,7 @@ public class CustomLinkedList<T> {
 
     public void add(int index, T value) {
         checkIndex(index);
-        if (index < size / 2){
+        if (index < size / 2) {
             int i = 0;
             Node<T> tempNode = head;
             while (i < index) {
@@ -49,6 +49,42 @@ public class CustomLinkedList<T> {
         size++;
     }
 
+    public boolean remove(T value) {
+        Node<T> h = head;
+        while (h.next != null) {
+            h = h.next;
+            if (h.value.equals(value)) {
+                Node<T> previous = h.previous;
+                Node<T> next = h.next;
+                previous.next = next;
+                next.previous = previous;
+                size--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeAll(T value) {
+        if (value == null)
+            return false;
+        Node<T> h = head;
+        while (h.next != null) {
+            h = h.next;
+            if (h.value != null && h.value.equals(value)) {
+                Node<T> previous = h.previous;
+                Node<T> next = h.next;
+                previous.next = next;
+                next.previous = previous;
+                size--;
+            }
+        }
+        return true;
+    }
+
+    public int size() {
+        return size;
+    }
 
     void checkIndex(int index) {
         if (index < 0 || index > size) {
